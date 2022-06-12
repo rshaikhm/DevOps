@@ -19,6 +19,9 @@ trigger:
      - 02_azure-pipelines-ci.yml
      - 03_azure-pipelines-ci-cd.yml
 
+variables:
+  tag: '$(Build.BuildId)'
+
 parameters:
 - name: runCompletePipeline
   displayName: Run All Tasks ?

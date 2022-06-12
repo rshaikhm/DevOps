@@ -151,15 +151,4 @@ stages:
         ArtifactName: arm
 
 
-  - job: Infrastructure
-    displayName: Publish Infra files
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: ARM templates'
-      inputs:
-        PathtoPublish: arm-template
-        ArtifactName: arm
 

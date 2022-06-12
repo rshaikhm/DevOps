@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "WebAppContext"
+      "connectionId": "ConnectionStrings:WebAppContext"
     }
   }
 }

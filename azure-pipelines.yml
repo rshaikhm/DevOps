@@ -153,7 +153,7 @@ stages:
         PathtoPublish: arm-template
         ArtifactName: arm
 
-- stage: Build Docker Image
+- stage: BuildImage
   displayName: Build image
   dependsOn: Build
   jobs:  

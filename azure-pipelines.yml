@@ -1,4 +1,4 @@
-<
+
 trigger: 'none' # will disable CI builds entirely
 
 pool:
@@ -47,4 +47,4 @@ steps:
   displayName: 'Publish Artifact (WebApp.zip)'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
->>>>>>> bbf7a68b157488ed34b087b58506d780ce5fdc3d
+

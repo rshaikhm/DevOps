@@ -155,7 +155,7 @@ stages:
 
 - stage: BuildImage
   displayName: Build image
-  dependsOn: Build
+  dependsOn: Build_Stage
   jobs:  
   - job: Build
     displayName: Build

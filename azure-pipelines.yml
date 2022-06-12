@@ -162,8 +162,8 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'DockerHubConnnection'
-        repository: 'houssemdocker/products-web'
+        containerRegistry: 'docker-hub-mustafaeraza'
+        repository: 'mustafaeraza/webapp'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
@@ -171,10 +171,9 @@ stages:
     - task: Docker@2
       displayName: Push an image
       inputs:
-        containerRegistry: 'DockerHubConnnection'
-        repository: 'houssemdocker/products-web'
+        containerRegistry: 'docker-hub-mustafaeraza'
+        repository: 'mustafaeraza/webapp'
         command: 'push'
-        Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
 
 

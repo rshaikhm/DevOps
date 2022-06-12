@@ -138,31 +138,18 @@ stages:
       inputs:
         ArtifactName: dacpac
 
-  - job: Selenium
-    displayName: Build UI Tests
+  - job: Infrastructure
+    displayName: Publish Infra files
     pool:
-      vmImage: 'windows-2019'
-      demands: msbuild
-
+      vmImage: 'ubuntu-latest'
     steps:
-    - task: NuGetToolInstaller@0
-      displayName: Use NuGet 4.3.0
-
-    - task: NuGetCommand@2
-      displayName: Restoore NuGet Packages
-      inputs:
-        restoreSolution: WebAppWithDatabase.sln
-
-    - task: MSBuild@1
-      displayName: Build SeleniumUiTests.csproj
-      inputs:
-        solution: SeleniumUiTests/SeleniumUiTests.csproj
-        msbuildArguments: '/p:OutDir=$(Build.ArtifactStagingDirectory)'
-
+    
     - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: UI-Test'
+      displayName: 'Publish Artifact: ARM templates'
       inputs:
-        ArtifactName: ui-tests
+        PathtoPublish: arm-template
+        ArtifactName: arm
+
 
   - job: Infrastructure
     displayName: Publish Infra files

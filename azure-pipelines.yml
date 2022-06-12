@@ -221,24 +221,24 @@ stages:
         overrideParameters: '-hostingPlanName $(hostingPlanName) -skuName "F1" -skuCapacity 1 -administratorLogin $(Database.Admin) -administratorLoginPassword $(Database.Password) -databaseName $(Database.Name) -collation "SQL_Latin1_General_CP1_CI_AS" -edition "Basic" -maxSizeBytes "1073741824" -requestedServiceObjectiveName "Basic" -webSiteName $(WebAppName) -sqlserverName $(SqlServerName)'
         deploymentMode: 'Validation'
 
-    - task: AzSKARMTemplateChecker@4
-      displayName: Scan ARM templates using AzSK
-      enabled: ${{ parameters.runCompletePipeline }}
-      continueOnError: true
-      inputs:
-        ARMTemplateFilePath: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.json'
-        ARMTemplateParameterFilePath: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.parameters.json'
+    # - task: AzSKARMTemplateChecker@4
+    #   displayName: Scan ARM templates using AzSK
+    #   enabled: ${{ parameters.runCompletePipeline }}
+    #   continueOnError: true
+    #   inputs:
+    #     ARMTemplateFilePath: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.json'
+    #     ARMTemplateParameterFilePath: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.parameters.json'
 
 # scan ARM template using TTK
 
-    - task: RunARMTTKTests@1
-      displayName: Scan ARM templates using TTK
-      inputs:
-        templatelocation: '$(System.DefaultWorkingDirectory)/arm/'
-        resultLocation: '$(System.DefaultWorkingDirectory)/arm/results'
-        allTemplatesMain: false
-        cliOutputResults: true
-        ignoreExitCode: true
+    # - task: RunARMTTKTests@1
+    #   displayName: Scan ARM templates using TTK
+    #   inputs:
+    #     templatelocation: '$(System.DefaultWorkingDirectory)/arm/'
+    #     resultLocation: '$(System.DefaultWorkingDirectory)/arm/results'
+    #     allTemplatesMain: false
+    #     cliOutputResults: true
+    #     ignoreExitCode: true
         # includeTests: 'VM Images Should Use Latest Version,Resources Should Have Location'
         # skipTests: 'VM Images Should Use Latest Version,Resources Should Have Location'
 
@@ -259,31 +259,31 @@ stages:
         inlineScript: 'az deployment group what-if --resource-group $(ResourceGroupName) --name rollout01 --template-file  WebSiteSQLDatabase.json --parameters WebSiteSQLDatabase.parameters.json'
         arguments: '-hostingPlanName $(hostingPlanName) -skuName "F1" -skuCapacity 1 -administratorLogin $(Database.Admin) -administratorLoginPassword $(Database.Password) -databaseName $(Database.Name) -collation "SQL_Latin1_General_CP1_CI_AS" -edition "Basic" -maxSizeBytes "1073741824" -requestedServiceObjectiveName "Basic" -webSiteName $(WebAppName) -sqlserverName $(SqlServerName)'
 
-    - task: AzureResourceManagerTemplateDeployment@3
-      displayName: Deploy ARM templates
-      inputs:
-        deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: 'WebAppWithDatabaseDemo_spn'
-        subscriptionId: '4b72ed90-7ca3-4e76-8d0f-31a2c0bee7a3'
-        action: 'Create Or Update Resource Group'
-        resourceGroupName: '$(ResourceGroupName)'
-        location: 'West Europe'
-        templateLocation: 'Linked artifact'
-        csmFile: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.json'
-        csmParametersFile: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.parameters.json'
-        overrideParameters: '-hostingPlanName $(hostingPlanName) -skuName "F1" -skuCapacity 1 -administratorLogin $(Database.Admin) -administratorLoginPassword $(Database.Password) -databaseName $(Database.Name) -collation "SQL_Latin1_General_CP1_CI_AS" -edition "Basic" -maxSizeBytes "1073741824" -requestedServiceObjectiveName "Basic" -webSiteName $(WebAppName) -sqlserverName $(SqlServerName)'
-        deploymentMode: 'Complete'
+    # - task: AzureResourceManagerTemplateDeployment@3
+    #   displayName: Deploy ARM templates
+    #   inputs:
+    #     deploymentScope: 'Resource Group'
+    #     azureResourceManagerConnection: 'WebAppWithDatabaseDemo_spn'
+    #     subscriptionId: '4b72ed90-7ca3-4e76-8d0f-31a2c0bee7a3'
+    #     action: 'Create Or Update Resource Group'
+    #     resourceGroupName: '$(ResourceGroupName)'
+    #     location: 'West Europe'
+    #     templateLocation: 'Linked artifact'
+    #     csmFile: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.json'
+    #     csmParametersFile: '$(System.DefaultWorkingDirectory)/arm/WebSiteSQLDatabase.parameters.json'
+    #     overrideParameters: '-hostingPlanName $(hostingPlanName) -skuName "F1" -skuCapacity 1 -administratorLogin $(Database.Admin) -administratorLoginPassword $(Database.Password) -databaseName $(Database.Name) -collation "SQL_Latin1_General_CP1_CI_AS" -edition "Basic" -maxSizeBytes "1073741824" -requestedServiceObjectiveName "Basic" -webSiteName $(WebAppName) -sqlserverName $(SqlServerName)'
+    #     deploymentMode: 'Complete'
 
-    - task: AzSKSVTs@4
-      displayName: Scan Azure Resources
-      enabled: ${{ parameters.runCompletePipeline }}
-      continueOnError: true
-      inputs:
-        ConnectedServiceNameARM: 'WebAppWithDatabaseDemo_spn'
-        GenerateMethodParameterSetSelection: 'ResourceGroupName'
-        ResourceGroupName: '$(ResourceGroupName)'
-        SubscriptionId: '4b72ed90-7ca3-4e76-8d0f-31a2c0bee7a3'
-        EnableGSSscan: true
+    # - task: AzSKSVTs@4
+    #   displayName: Scan Azure Resources
+    #   enabled: ${{ parameters.runCompletePipeline }}
+    #   continueOnError: true
+    #   inputs:
+    #     ConnectedServiceNameARM: 'WebAppWithDatabaseDemo_spn'
+    #     GenerateMethodParameterSetSelection: 'ResourceGroupName'
+    #     ResourceGroupName: '$(ResourceGroupName)'
+    #     SubscriptionId: '4b72ed90-7ca3-4e76-8d0f-31a2c0bee7a3'
+    #     EnableGSSscan: true
 
   - job: Deploy_DEV
     displayName: Deploy Apps to DEV

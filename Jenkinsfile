@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 pipeline {
-	agent { label 'master' }
+	
 	stages {
 		stage('Checkout') {
 			steps {

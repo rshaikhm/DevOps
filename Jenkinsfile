@@ -12,7 +12,7 @@ pipeline {
 		{
 			steps {
 				sh 'dotnet test {TEST_PROJECT}.csproj -c Release --logger "trx;LogFileName=TestResult.xml"'
-				sh 'cp -R TestResults/TestResult.xml .' 
+				sh 'cp -R TestResults/TestResult.xml .' #
 				step([$class: 'MSTestPublisher', testResultsFile: 'TestResult.xml', failOnError: true, keepLongStdio: true])
 			}
 		}
